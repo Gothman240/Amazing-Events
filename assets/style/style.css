@@ -66,6 +66,9 @@ main{
     background-color: #e0dddd;
 }
 
+.form-check-input:checked{
+    background-color: var(--color--1) !important;
+}
 
 .card{
     width: 18rem !important;
