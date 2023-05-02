@@ -76,6 +76,10 @@ main{
     transition: all .3s ease-in-out;
 }
 
+.card-img-top{
+    height: 12rem !important;
+}
+
 .card-footer{
     border: 0!important;
 }
