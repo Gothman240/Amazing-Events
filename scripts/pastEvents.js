@@ -9,7 +9,7 @@ function showAllCards(data) {
       </div>
       <div class="card-footer d-flex justify-content-between align-items-center">
       <h6 class="m-0">$${data.price}</h6>
-      <a href="./details.html" class="btn btn-primary">Details</a>
+      <a href="./details.html?_id=${data._id}" class="btn btn-primary">Details</a>
       </div>
   `;
 }
