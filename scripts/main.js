@@ -24,6 +24,12 @@ function mostrarCartas(data) {
 
 function pintarCartas(data, container, clase=""){
     let fragment = document.createDocumentFragment();
+    if(data.length == 0){
+      let h1 = document.createElement("h1")
+      h1.classList = "text-center fw-bold opacity-25"
+      h1.innerText = "Oops nothing to see here..."
+      fragment.appendChild(h1)
+    }
     for (const item of data) {
        let div = document.createElement("div")
        div.classList = clase
@@ -62,11 +68,9 @@ function arraySinRepetir(array){
 
 /* search */
 inputSearch.addEventListener("input", ()=>{
-/*   let filtrarPorBusqueda = filtroSearch(info, inputSearch.value)
- */  
+
   dobleFiltro(checkboxCaptured)
-/*   pintarCartas(filtrarPorBusqueda, cards, "card p-0")
- */})
+})
 
 function filtroSearch (array, valueSearch) {
   let arrayaux = array.filter (item => item.name.toLowerCase().includes( valueSearch.toLowerCase().trim()))
@@ -80,10 +84,8 @@ let checkboxCaptured =[]
 checkContain.addEventListener("change", ()=>{
   checkboxCaptured = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map( check => check.value)
 
-/*   let categoryFilter = filtrarPorCategoria(info, checkboxCaptured)
-*/  dobleFiltro(checkboxCaptured)
-/*   pintarCartas(categoryFilter, cards, "card p-0")
-*/
+  dobleFiltro(checkboxCaptured)
+
 })
 
 function filtrarPorCategoria(array, categoria){
