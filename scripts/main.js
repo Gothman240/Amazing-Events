@@ -59,7 +59,7 @@ function pintarCheck(data, container){
   container.innerHTML = template;
 }
 
-
+/* se repetian los check */
 function arraySinRepetir(array){
   let categorias = array.map(item => item.category )
   let nuevasCategorias = Array.from(new Set (categorias))
@@ -72,11 +72,11 @@ inputSearch.addEventListener("input", ()=>{
   dobleFiltro(checkboxCaptured)
 })
 
+/* filtrando lo que viene del input */
 function filtroSearch (array, valueSearch) {
   let arrayaux = array.filter (item => item.name.toLowerCase().includes( valueSearch.toLowerCase().trim()))
   return arrayaux
 }
-
 
 
 /* check */
@@ -88,6 +88,8 @@ checkContain.addEventListener("change", ()=>{
 
 })
 
+
+/* filtrar valor por check */
 function filtrarPorCategoria(array, categoria){
   if(categoria.length == 0){
     return array

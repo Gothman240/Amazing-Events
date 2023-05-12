@@ -43,7 +43,7 @@ function pintarCartas(data, container, clase = "") {
 }
 
 
-
+/* check template */
 function mostrarCheck(data){
   return `<div class="form-check form-check-inline">
   <input class="form-check-input" type="checkbox" value="${data}" id="${data}">
@@ -53,6 +53,7 @@ function mostrarCheck(data){
 </div>`
 }
 
+/* pintar check + template */
 function pintarCheck(data, container){
   let template = ""
   for (const item of data) {
@@ -61,26 +62,25 @@ function pintarCheck(data, container){
   container.innerHTML = template;
 }
 
-
+/* se repetian los check */
 function arraySinRepetir(array){
   let categorias = array.map(item => item.category )
   let nuevasCategorias = Array.from(new Set (categorias))
   return nuevasCategorias;
 }
 
-/* search */
+/* capturando input search */
 inputSearch.addEventListener("input", ()=>{
-/*   let filtrarPorBusqueda = filtroSearch(info, inputSearch.value)
- */  
+  
   dobleFiltro(checkboxCaptured)
-/*   pintarCartas(filtrarPorBusqueda, cards, "card p-0")
- */})
 
+})
+
+/* filtrando lo que viene del input */
 function filtroSearch (array, valueSearch) {
-  let arrayaux = array.filter (item => item.name.toLowerCase().includes( valueSearch.toLowerCase().trim()))
-  return arrayaux
+  let arryAux = array.filter (item => item.name.toLowerCase().includes( valueSearch.toLowerCase().trim()))
+  return arryAux
 }
-
 
 
 /* check */
@@ -88,12 +88,11 @@ let checkboxCaptured =[]
 checkContain.addEventListener("change", ()=>{
   checkboxCaptured = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map( check => check.value)
 
-/*   let categoryFilter = filtrarPorCategoria(info, checkboxCaptured)
-*/  dobleFiltro(checkboxCaptured)
-/*   pintarCartas(categoryFilter, cards, "card p-0")
-*/
+  dobleFiltro(checkboxCaptured)
+
 })
 
+/* filtrar valor por check */
 function filtrarPorCategoria(array, categoria){
   if(categoria.length == 0){
     return array
