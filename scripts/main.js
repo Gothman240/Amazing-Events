@@ -2,10 +2,26 @@ let cards = document.getElementById("main-cards");
 let checkContain = document.getElementById ("check-contain")
 let inputSearch = document.getElementById("search")
 
-let info = data.events
 
-pintarCheck(arraySinRepetir(info), checkContain)
-pintarCartas(info, cards, "card p-0")
+let info;
+
+fetch('https://mindhub-xj03.onrender.com/api/amazing')
+  .then( data => data.json())
+  .then( res => {
+    
+    info = res.events
+
+    pintarCheck(arraySinRepetir(info), checkContain)
+    pintarCartas(info, cards, "card p-0")
+
+    /* search */
+    inputSearch.addEventListener("input", dobleFiltro)
+
+    /* check */
+    checkContain.addEventListener("change", dobleFiltro)
+
+  })
+  .catch(err => console.log(err))
 
 
 function mostrarCartas(data) {
@@ -66,27 +82,12 @@ function arraySinRepetir(array){
   return nuevasCategorias;
 }
 
-/* search */
-inputSearch.addEventListener("input", ()=>{
-
-  dobleFiltro(checkboxCaptured)
-})
 
 /* filtrando lo que viene del input */
 function filtroSearch (array, valueSearch) {
   let arrayaux = array.filter (item => item.name.toLowerCase().includes( valueSearch.toLowerCase().trim()))
   return arrayaux
 }
-
-
-/* check */
-let checkboxCaptured =[]
-checkContain.addEventListener("change", ()=>{
-  checkboxCaptured = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map( check => check.value)
-
-  dobleFiltro(checkboxCaptured)
-
-})
 
 
 /* filtrar valor por check */
@@ -98,10 +99,12 @@ function filtrarPorCategoria(array, categoria){
   return array.filter(item =>  categoria.includes(item.category) )
 }
 
-function dobleFiltro(arrayCheckCapturado){
+function dobleFiltro(){
 
+  let checkboxCaptured = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map( check => check.value)
+ 
   let searchInput = filtroSearch (info, inputSearch.value)
-  let checkFilter = filtrarPorCategoria(searchInput, arrayCheckCapturado)
+  let checkFilter = filtrarPorCategoria(searchInput, checkboxCaptured)
 
   pintarCartas(checkFilter, cards, "card p-0")
 }

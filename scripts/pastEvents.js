@@ -2,13 +2,31 @@ let pastCards = document.getElementById("past-cards");
 let checkContain = document.getElementById ("check-contain")
 let inputSearch = document.getElementById("search")
 
-let info = data.events
-const past = data.events.filter((event) => event.date < data.currentDate);
+let info;
 
-pintarCheck(arraySinRepetir(info), checkContain)
-pintarCartas(past, pastCards, "card p-0 card-past");
+let past;
 
+fetch('https://mindhub-xj03.onrender.com/api/amazing')
+  .then( data => data.json())
+  .then( res => {
+    
+    info = res.events
+    
+    past = res.events.filter((event) => event.date < res.currentDate);
 
+    pintarCheck(arraySinRepetir(info), checkContain)
+    pintarCartas(past, pastCards, "card p-0 card-past");
+
+    /* search */
+    inputSearch.addEventListener("input", dobleFiltro)
+
+    /* check */
+    checkContain.addEventListener("change", dobleFiltro)
+
+  })
+  .catch(err => console.log(err))
+
+  
 function mostrarCartas(data) {
   return `
       <img src="${data.image}" class="card-img-top object-fit-cover w-100" alt="cine img">
@@ -69,12 +87,6 @@ function arraySinRepetir(array){
   return nuevasCategorias;
 }
 
-/* search */
-inputSearch.addEventListener("input", ()=>{
-
-  dobleFiltro(checkboxCaptured)
-
-})
 
 /* filtrando lo que viene del input */
 function filtroSearch (array, valueSearch) {
@@ -82,15 +94,6 @@ function filtroSearch (array, valueSearch) {
   return arrayAux
 }
 
-
-/* check */
-let checkboxCaptured =[]
-checkContain.addEventListener("change", ()=>{
-  checkboxCaptured = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map( check => check.value)
-
- dobleFiltro(checkboxCaptured)
-
-})
 
 /* filtrar valor por check */
 function filtrarPorCategoria(array, categoria){
@@ -101,10 +104,11 @@ function filtrarPorCategoria(array, categoria){
   return array.filter(item =>  categoria.includes(item.category) )
 }
 
-function dobleFiltro(arrayCheckCapturado){
+function dobleFiltro(){
+  let = checkboxCaptured = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map( check => check.value);
 
   let searchInput = filtroSearch (past, inputSearch.value)
-  let checkFilter = filtrarPorCategoria(searchInput, arrayCheckCapturado)
+  let checkFilter = filtrarPorCategoria(searchInput, checkboxCaptured)
 
   pintarCartas(checkFilter, pastCards, "card p-0 card-past")
 }
