@@ -158,9 +158,14 @@ textarea{
     width: 100% !important;
 }
 
+thead{
+    border: 1px var(--color--1) solid;
+}
+
 th{
     background-color: var(--color--1) !important;
     color: #fff;
+    border: 0;
 }
 
 .table-bordered{

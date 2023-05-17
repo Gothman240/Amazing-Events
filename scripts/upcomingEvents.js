@@ -17,14 +17,14 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
     pintarCheck(arraySinRepetir(info), checkContain)
     pintarCartas(upcoming, upcomingCards, "card p-0");
 
-    /* search */
-    inputSearch.addEventListener("input", dobleFiltro)
-
-    /* check */
-    checkContain.addEventListener("change", dobleFiltro)
-
   })
   .catch(err => console.log(err))
+
+  /* search */
+  inputSearch.addEventListener("input", dobleFiltro)
+
+  /* check */
+  checkContain.addEventListener("change", dobleFiltro)
 
 
 function mostrarCartas(data) {
